@@ -1,0 +1,9 @@
+
+(person:Person {name: firstName, born: {dateTimeBetween: ["-60 years", "-25 years"]} } *20)-[:KNOWS {affinity:  {randomElement:['Acquaintance', 'Friends','Enemies'] }} *n..n]->(person)
+(person)-[:HAS {level: {randomElement: ['Beginner', 'Intermediate', 'Expert'] }} *n..n]->(skill:Skill {name: {randomElement: ['Finance', progLanguage]}} *20)
+(company:Company {name: company} *20)-[:LOOKS_FOR_COMPETENCE {level: {randomElement:['Beginner', 'Intermediate', 'Expert'] }} *n..n]->(skill)
+(company)-[:BELONGS_TO *n..n]->(industry:Industry {name: {randomElement:['Oil', 'Farming', 'Chocolate', 'Software Engineering', 'Finance'] }} *20)
+(employee:Person:Employee *20)-[:WORKS_AT {arrivalDate: {dateTimeBetween: ["-5 years", "-1 years"] }, salary: randomNumber} *n..1]->(company)
+(employee)-[:KNOWS {affinity:  {randomElement:['Acquaintance', 'Friends','Enemies'] }} *n..n]->(person)
+(company)-[:LOCATED_IN {arrivalDate: {dateTimeBetween: ["-5 years", "-1 years"]}} *n..1]->(country:Country {name: country} *20)
+(person)-[:LIVES_IN {arrivalDate: {dateTimeBetween: ["-5 years", "-1 years"]}} *n..1]->(country)
