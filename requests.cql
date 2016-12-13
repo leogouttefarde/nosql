@@ -13,9 +13,9 @@ WHERE ii.name = 'Software Engineering'   AND jj.name = 'Oil' AND ss.name='Financ
 RETURN cc;
 
 // Pour une entreprise donnée (à choisir), liste des personnes qui ont une connaissance qui travaille dans l’entreprise et qui partagent au moins une compétence de même niveau avec celle-ci
-MATCH (c:Company {name: 'Company'})-[WORKS_AT]-(p:person)-[KNOWS]-(pp:person)
+MATCH (c:Company {name: 'Company'})-[WORKS_AT]-(p:Person)-[KNOWS]-(pp:Person)
 MATCH (s:Skill)<-[h:HAS]-(p)
-MATCH (ss:Skill)<-[hh:HAS]-(pp)
+MATCH (ss:Skill)<-[hh:HAS]-(pp)-[WORKS_AT]-(c)
 WHERE h.level = hh.level
 RETURN pp as person;
 
