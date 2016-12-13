@@ -12,6 +12,13 @@ MATCH (cc)-[BELONGS_TO]-(jj:Industry)
 WHERE ii.name = 'Software Engineering'   AND jj.name = 'Oil' AND ss.name='Finance'
 RETURN cc;
 
+// Pour une entreprise donnée (à choisir), liste des personnes qui ont une connaissance qui travaille dans l’entreprise et qui partagent au moins une compétence de même niveau avec celle-ci
+MATCH (c:Company {name: 'Company'})-[WORKS_AT]-(p:person)-[KNOWS]-(pp:person)
+MATCH (s:Skill)<-[h:HAS]-(p)
+MATCH (ss:Skill)<-[hh:HAS]-(pp)
+WHERE h.level = hh.level
+RETURN pp as person;
+
 // Augmenter le salaire de tous les employés experts en 'Neo4j' des entreprises d'informatique de 200%
 MATCH (ss:Skill)-[HAS]-(pp:Person)-[ww:WORKS_AT]-(cc:Company)-[BELONGS_TO]-(ii:Industry)
 WHERE ss.name='Neo4j' AND ss.level = 'Expert' AND ii.name = 'Software Engineering'
