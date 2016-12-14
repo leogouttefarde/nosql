@@ -4,4 +4,4 @@ MATCH (company_country:Country)<-[]-(cmp)
 MATCH (prs:Person)-[h:HAS]->(s)
 MATCH (person_country:Country)<-[]-(prs)
 where h.level IN ['Intermediate', 'Expert'] AND person_country.name = company_country.name
-return  cmp as company,count(prs) as coun
+return  cmp as Company,count(prs) as Number;
