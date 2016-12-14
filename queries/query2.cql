@@ -1,6 +1,6 @@
 
-MATCH (c:Company {name: 'Apple'})-[WORKS_AT]-(p:Person)-[KNOWS]-(pp:Person)
-OPTIONAL MATCH (s:Skill)<-[h:HAS]-(p)
-OPTIONAL MATCH (ss:Skill)<-[hh:HAS]-(pp)-[WORKS_AT]-(c)
+MATCH (c:Company {name: 'Apple'})-[WORKS_AT]-(e:Employee)-[KNOWS]-(ee:Employee)
+MATCH (s:Skill)<-[h:HAS]-(e)
+OPTIONAL MATCH (ss:Skill)<-[hh:HAS]-(ee)-[WORKS_AT]-(c)
 WHERE h.level = hh.level
-RETURN pp as person;
+RETURN ee AS employee;
