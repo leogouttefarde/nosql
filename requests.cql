@@ -6,12 +6,13 @@ MATCH (person_country:Country)<-[]-(prs)
 where h.level IN ['Intermediate', 'Expert'] AND person_country.name = company_country.name
 return  cmp as company,count(prs) as coun
 
-// Pour une entreprise donnée (à choisir), liste des personnes qui ont une connaissance qui travaille dans l’entreprise et qui partagent au moins une compétence de même niveau avec celle-ci
-MATCH (c:Company {name: 'Company'})-[WORKS_AT]-(p:Person)-[KNOWS]-(pp:Person)
-MATCH (s:Skill)<-[h:HAS]-(p)
-MATCH (ss:Skill)<-[hh:HAS]-(pp)-[WORKS_AT]-(c)
+// Pour l'entreprise Apple, liste des personnes qui ont une connaissance qui travaille dans l’entreprise et qui partagent au moins une compétence de même niveau avec celle-ci
+MATCH (c:Company {name: 'Apple'})-[WORKS_AT]-(p:Person)-[KNOWS]-(pp:Person)
+OPTIONAL MATCH (s:Skill)<-[h:HAS]-(p)
+OPTIONAL MATCH (ss:Skill)<-[hh:HAS]-(pp)-[WORKS_AT]-(c)
 WHERE h.level = hh.level
 RETURN pp as person;
+// Testé fonctionnel
 
 // Liste des entreprises qui travaillent dans l'informatique et le pétrole employant des personnes spécialisées en finance
 MATCH (ss:Skill {name: 'Finance'})-[HAS]-(pp:Person)-[WORKS_AT]-(cc:Company)-[BELONGS_TO]-(ii:Industry {name: 'Software Engineering'})
